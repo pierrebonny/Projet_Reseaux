@@ -23,7 +23,7 @@ class Parser {
         int length = requestSplited.length;
         String params[] = new String[length - 1];
         System.arraycopy(requestSplited, 1, params, 0, length-1);
-        
+
         Command command;
         switch (requestSplited[0]) {
             case "ADD":

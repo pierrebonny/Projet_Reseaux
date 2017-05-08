@@ -12,7 +12,7 @@ public class JsonParser {
     public JsonParser() {
         JSONParser parser = new JSONParser();
         try {
-            JSONObject root = (JSONObject)parser.parse(new FileReader("res/data.json"));
+            JSONObject root = (JSONObject)parser.parse(new FileReader("Binome_Casa_Bonny/res/data.json"));
             ideas = (JSONArray)root.get("ideas");
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,11 +25,12 @@ public class JsonParser {
         for (int i = 0; i < ideas.size(); i++) {
             jObject = (JSONObject)ideas.get(i);
 
-            sb.append("===========================\nIdée ").append(i-1);
+            sb.append("===========================\nIdée ").append(i+1);
             sb.append("\nNom : ").append(jObject.get("name"));
             sb.append("\nDescription : ").append(jObject.get("description"));
             sb.append("\nTechnologies : ").append(jObject.get("technology"));
-            sb.append("\nCréateur :\n\tNom : ").append(((JSONObject)jObject.get("creator")).get("name")).append(((JSONObject)jObject.get("creator")).get("mail"));
+            sb.append("\nCréateur :\n\tNom : ").append(((JSONObject)jObject.get("creator")).get("name"));
+            sb.append("\n\tMail : ").append(((JSONObject)jObject.get("creator")).get("mail"));
             sb.append("\nFinalisé : ").append(jObject.get("finalised")).append("\n");
         }
         sb.append("===========================");
