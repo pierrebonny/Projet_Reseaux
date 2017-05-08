@@ -22,7 +22,7 @@ public class Client {
     }
 
     private String serialize() {
-        return "ADD name=nom miaou=nyan";
+        return "ADD name=nom miaou=nyan\n";
     }
 
     public static void main(String[] args) {
