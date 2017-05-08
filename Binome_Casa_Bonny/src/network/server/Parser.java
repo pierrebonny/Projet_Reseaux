@@ -13,12 +13,10 @@ class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         String requestSplited[] = request.split(" ");
         int length = requestSplited.length;
-        String params[] = new String[length-1];
-        System.arraycopy(requestSplited, 1, params, length-1, length-1);
-
+        String params[] = new String[length - 1];
+        System.arraycopy(requestSplited, 1, params, 0, length-1);
         Command command = null;
         switch (requestSplited[0]) {
             case "ADD":

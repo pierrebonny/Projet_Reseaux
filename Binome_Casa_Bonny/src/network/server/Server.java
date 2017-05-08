@@ -47,8 +47,10 @@ public class Server {
             output.flush();
         }
         catch (Exception e) {
+            System.out.println("error");
             e.printStackTrace();
         }
+        System.out.println(response);
     }
 
     public static void main(String[] args) {
