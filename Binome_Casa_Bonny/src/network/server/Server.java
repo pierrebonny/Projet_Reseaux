@@ -10,36 +10,30 @@ public class Server {
     private ServerSocket server;
     private Socket clientSocket;
 
-    public Server() {
+    private Server() {
         clientSocket = null;
     }
 
-    public void launchServer() {
+    private void launchServer() {
         try {
             server = new ServerSocket(PORT_NUMBER);
         }
         catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
-    public void listen() {
+    private void listen() {
         Parser parser = new Parser();
         BufferedReader input;
 
         while (true) {
             try {
                 clientSocket = server.accept();
-            }
-            catch (IOException e) {
-                System.err.println(e);
-            }
-
-            try {
                 input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             }
             catch (IOException e) {
-                System.out.println(e);
+                e.printStackTrace();
                 break;
             }
             answer(parser.parse(input));
@@ -53,7 +47,7 @@ public class Server {
             output.flush();
         }
         catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
