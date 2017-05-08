@@ -27,17 +27,24 @@ public class Server {
         Parser parser = new Parser();
         BufferedReader input;
 
-        while (true) {
+        while (parser.hasToQuit()) {
             try {
                 clientSocket = server.accept();
                 input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 break;
             }
             answer(parser.parse(input));
         }
+
+        try {
+            clientSocket.close();
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void answer(String response) {

@@ -3,10 +3,10 @@ package network.commands;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Add implements Command {
+public class Join implements Command {
     private Map<String, String> content;
 
-    public Add() {
+    public Join() {
         content = new HashMap<>();
     }
 
@@ -22,6 +22,6 @@ public class Add implements Command {
     }
 
     public String serialize() {
-        return (content.isEmpty()) ? "ERREUR:Add - wrong request" : "OK";
+        return (content.isEmpty()) ? "ERREUR:Join - wrong request" : "OK";
     }
 }

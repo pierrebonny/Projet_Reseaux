@@ -1,0 +1,31 @@
+{
+  "ideas": [
+    {
+      "name": "Maison pour chatons",
+      "description": "Un habitat simple et confortable pour nos petites bêtes",
+      "technology": "bluetooth",
+      "creator": {
+        "name": "Garfield",
+        "mail": "garfield@cat.org"
+      },
+      "participants": [
+        "nyu@cat.org"
+      ],
+      "finalised": "OUI"
+    },
+    {
+      "name": "Armures pour chatons",
+      "description": "Un moyen efficace pour protéger nos petites bêtes",
+      "technology": "laser",
+      "creator": {
+        "name": "Nyu",
+        "mail": "nyu@cat.org"
+      },
+      "participants": [
+        "guillaume@cat.org",
+        "moustache@cat.org"
+      ],
+      "finalised": "NON"
+    }
+  ]
+}
