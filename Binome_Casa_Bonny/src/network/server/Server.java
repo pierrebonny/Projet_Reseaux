@@ -27,7 +27,7 @@ public class Server {
         Parser parser = new Parser();
         BufferedReader input;
 
-        while (parser.hasToQuit()) {
+        while (!parser.hasToQuit()) {
             try {
                 clientSocket = server.accept();
                 input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
