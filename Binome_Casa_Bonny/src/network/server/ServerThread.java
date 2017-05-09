@@ -5,11 +5,10 @@ import java.net.Socket;
 import java.util.Optional;
 
 public class ServerThread implements Runnable {
-
     private Socket clientSocket;
     private Optional<Socket> socket;
 
-    public ServerThread(Optional<Socket> socket){
+    ServerThread(Optional<Socket> socket){
         this.socket = socket;
     }
 
@@ -32,7 +31,6 @@ public class ServerThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void answer(String response) {
@@ -48,7 +46,7 @@ public class ServerThread implements Runnable {
 
     @Override
     public void run() {
-        if(socket.isPresent()){
+        if (socket.isPresent()) {
             listen();
         }
     }
