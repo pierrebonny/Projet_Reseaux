@@ -1,35 +1,26 @@
 package network.server;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Optional;
 
-public class Server {
+public class ServerThread implements Runnable {
+
     private static final int PORT_NUMBER = 15042;
-
-    private ServerSocket server;
     private Socket clientSocket;
+    private Optional<Socket> socket;
 
-    private Server() {
-        clientSocket = null;
-    }
-
-    private void launchServer() {
-        try {
-            server = new ServerSocket(PORT_NUMBER);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ServerThread(Optional<Socket> socket){
+        this.socket = socket;
     }
 
     private void listen() {
         Parser parser = new Parser();
         BufferedReader input;
-
+        int i = 0;
         while (!parser.hasToQuit()) {
             try {
-                clientSocket = server.accept();
+                clientSocket = socket.get();
                 input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -40,7 +31,6 @@ public class Server {
 
         try {
             clientSocket.close();
-            server.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,15 +44,14 @@ public class Server {
             output.flush();
         }
         catch (Exception e) {
-            System.out.println("error");
             e.printStackTrace();
         }
-        System.out.println(response);
     }
 
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.launchServer();
-        server.listen();
+    @Override
+    public void run() {
+        if(socket.isPresent()){
+            listen();
+        }
     }
 }

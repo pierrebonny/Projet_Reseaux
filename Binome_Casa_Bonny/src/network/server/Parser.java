@@ -20,6 +20,7 @@ class Parser {
             e.printStackTrace();
         }
         String requestSplited[] = request.split(" ");
+
         int length = requestSplited.length;
         String params[] = new String[length - 1];
         System.arraycopy(requestSplited, 1, params, 0, length-1);
