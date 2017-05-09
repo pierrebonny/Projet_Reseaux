@@ -38,10 +38,10 @@ public class JsonParser {
     }
 
     public String serializeIdea(int ideaNumber) {
-        if (ideaNumber >= ideas.size()) {
+        if (ideaNumber < 0 || ideaNumber > ideas.size()) {
             return null;
         }
-        JSONObject ideaJson = (JSONObject)ideas.get(ideaNumber);
+        JSONObject ideaJson = (JSONObject)ideas.get(ideaNumber-1);
 
         StringBuilder answer = new StringBuilder();
         answer.append("Idée : ").append(ideaJson.get("name")).append("\n");
