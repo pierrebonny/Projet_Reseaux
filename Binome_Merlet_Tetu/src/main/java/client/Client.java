@@ -1,9 +1,8 @@
 package client;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  * @author : thomas
@@ -15,26 +14,12 @@ public class Client {
 
         try {
             socket = new Socket(InetAddress.getLocalHost(),15042);
-            System.out.println("Demande de connexion");
+            System.out.println("Connexion établie !\nAuthentification : ");
 
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-            BufferedReader reader = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+            Thread t = new Thread(new Connexion(socket));
+            t.start();
 
-            writer.println("Bonjour je suis le client !");
-            writer.flush();
-
-            String message_distant = reader.readLine();
-            System.out.println("Le serveur dit : " + message_distant);
-
-            writer.close();
-            reader.close();
-            socket.close();
-
-        }catch (UnknownHostException e) {
-
-            e.printStackTrace();
-
-        }catch (IOException e) {
+        } catch (IOException e) {
 
             e.printStackTrace();
 

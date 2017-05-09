@@ -1,10 +1,9 @@
 package server;
 
-import java.io.*;
+import model.IdeaManager;
 
+import java.io.IOException;
 import java.net.ServerSocket;
-
-import java.net.Socket;
 import java.util.Optional;
 
 
@@ -16,10 +15,11 @@ public class Server {
 
         public static void main(String[] argv) {
             ServerSocket socketserver  ;
+            IdeaManager ideaManager = new IdeaManager();
             try {
                 socketserver = new ServerSocket(15042);
                 while (true) {
-                    ServerThread thread = new ServerThread(Optional.of(socketserver.accept()));
+                    ServerThread thread = new ServerThread(Optional.of(socketserver.accept()),ideaManager);
                     thread.run();
                 }
             } catch (IOException e) {
