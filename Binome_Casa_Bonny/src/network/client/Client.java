@@ -1,15 +1,14 @@
 package network.client;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
     private static final int PORT_NUMBER = 15042;
+    private Socket myClient;
 
     private void sendRequest(String request) {
-        Socket myClient;
         try {
             myClient = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
             DataOutputStream output = new DataOutputStream(myClient.getOutputStream());
@@ -46,11 +45,32 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
-        Client client = new Client();
-        for (int i = 1; i < 10; i++) {
-            client.sendRequest(client.serialize(i));
+    private void listen() {
+        BufferedReader input;
+        String answer;
+        try {
+            input = new BufferedReader(new InputStreamReader(new DataInputStream(myClient.getInputStream())));
+            String line;
+            StringBuilder builder = new StringBuilder();
+            try {
+                while ((line = input.readLine()) != null) {
+                    builder.append(line);
+                }
+                System.out.println(builder.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void main(String[] args) {
+        Client client;
+        for (int i = 1; i < 10; i++) {
+            client = new Client();
+            client.sendRequest(client.serialize(i));
+            client.listen();
         }
     }
 }

@@ -16,6 +16,6 @@ public class GetEtus implements Command {
     public String serialize() {
         JsonParser jp = new JsonParser();
         String answer = jp.serializeIdea(idIdea);
-        return (idIdea == -1 || answer == null) ? "ERREUR:Finalize - wrong request" : "OK\r\n\r\n" + answer;
+        return (idIdea == -1 || answer == null) ? "ERREUR:GET_ETUS - wrong request" : "OK\r\n\r\n" + answer;
     }
 }
