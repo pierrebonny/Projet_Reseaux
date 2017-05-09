@@ -14,11 +14,21 @@ class Parser {
 
     String parse(BufferedReader buffer) {
         String request = null;
-        try {
+        /*try {
             request = buffer.readLine();
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        int i;
+        StringBuilder builder = new StringBuilder();
+        try {
+            while ((i = buffer.read()) != '\n'){
+                builder.append((char)i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        request = builder.toString();
         String requestSplited[] = request.split(" ");
 
         int length = requestSplited.length;

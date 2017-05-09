@@ -24,6 +24,7 @@ public class ServerThread implements Runnable {
                 break;
             }
             answer(parser.parse(input));
+            break;
         }
 
         try {
@@ -34,6 +35,7 @@ public class ServerThread implements Runnable {
     }
 
     private void answer(String response) {
+        System.out.println(response);
         try {
             DataOutputStream output = new DataOutputStream(clientSocket.getOutputStream());
             output.write(response.getBytes());
