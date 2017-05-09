@@ -14,6 +14,7 @@ public class Client {
             myClient = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
             DataOutputStream output = new DataOutputStream(myClient.getOutputStream());
             output.write(serialize().getBytes());
+            output.write("QUIT\n".getBytes());
             output.flush();
         }
         catch (IOException e) {
