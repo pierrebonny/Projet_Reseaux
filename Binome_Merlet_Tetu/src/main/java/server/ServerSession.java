@@ -41,7 +41,7 @@ public class ServerSession implements Runnable {
 
         try {
             while(true) {
-                Optional<Command> commandOptional;
+                Optional<Command> commandOptional = Optional.empty();
                 request = in.readLine();
                 requestType = request.split(" ")[0];
                 fillParams();
@@ -51,6 +51,9 @@ public class ServerSession implements Runnable {
                         break;
                     case "JOIN":
                         commandOptional = Optional.of(new Join(params));
+                        break;
+                    case "GET_IDEAS":
+                        response.append(ideaManager.toString());
                         break;
                     default:
                         commandOptional = Optional.empty();
