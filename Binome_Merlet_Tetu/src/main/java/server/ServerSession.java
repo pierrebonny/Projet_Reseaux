@@ -63,6 +63,7 @@ public class ServerSession implements Runnable {
                 if(commandOptional.isPresent()){
                     commandOptional.get().interpret(ideaManager);
                     response.append(commandOptional.get().result());
+                    System.out.println(commandOptional.get().resultServer());
                 }
                 out.println(response.toString());
                 out.flush();

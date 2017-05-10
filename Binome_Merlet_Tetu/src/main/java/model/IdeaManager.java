@@ -31,7 +31,7 @@ public class IdeaManager {
         s.append("---------------------------------\n");
         for(int i =0;i<ideas.size();i++){
             Idea idea = ideas.get(i);
-            s.append("Idée " + (char) i +" :\n");
+            s.append("Idée " + i +" :\n");
             s.append("Nom : " + idea.getName() +"\n");
             s.append("Description : "+ idea.getDescription()+ "\n");
             s.append("Technologie : " + idea.getTechnology()+"\n");

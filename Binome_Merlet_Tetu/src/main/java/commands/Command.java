@@ -11,4 +11,6 @@ public interface Command {
     void interpret(IdeaManager ideaManager);
 
     String result();
+
+    String resultServer();
 }

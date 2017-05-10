@@ -11,6 +11,7 @@ public class Add implements Command {
 
     private String[] params;
     private boolean error = false;
+    private Idea idea;
     public Add(String[] params) {
         this.params = params;
     }
@@ -26,7 +27,7 @@ public class Add implements Command {
                String technology = getParam(params, "technos").split("=")[1];
                String nomCreateur = getParam(params, "nomCréateur").split("=")[1];
                String mailCréateur = getParam(params, "mailCréateur").split("=")[1];
-               ideaManager.addIdea(new Idea(name,description,technology,nomCreateur,mailCréateur));
+               ideaManager.addIdea(idea = new Idea(name,description,technology,nomCreateur,mailCréateur));
            }
        }catch (Exception e){
            error = true;
@@ -37,6 +38,13 @@ public class Add implements Command {
     public String result() {
         return (error == true)? "ERREUR: Requete ADD invalide." : "OK";
     }
+
+    @Override
+    public String resultServer() {
+        return (error == true)? "ERREUR: ADDING IDEA FAILED." : ("ADDING IDEA :" + idea.getName() + " SUCCESSFULL");
+    }
+
+
 
     private String getParam(String[] params, String name){
         for(String param : params){
