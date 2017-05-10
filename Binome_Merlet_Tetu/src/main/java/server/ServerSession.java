@@ -2,10 +2,12 @@ package server;
 
 import commands.Add;
 import commands.Command;
+import model.IdeaManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 /**
  * @author : thomas
@@ -15,6 +17,8 @@ public class ServerSession implements Runnable {
 
     private PrintWriter out = null;
     private BufferedReader in = null;
+
+    private IdeaManager ideaManager;
 
     private String request= null;
     private String requestType = null;
@@ -26,6 +30,7 @@ public class ServerSession implements Runnable {
         this.out = out;
         this.in = in;
         response = new StringBuilder();
+        ideaManager = new IdeaManager();
     }
 
     @Override
@@ -35,25 +40,28 @@ public class ServerSession implements Runnable {
 
         try {
             while(true) {
-                Command command;
+                Optional<Command> commandOptional;
                 request = in.readLine();
                 requestType = request.split(" ")[0];
                 fillParams();
                 switch (requestType) {
                     case "ADD":
-                        command = new Add(params);
-                        command.interpret();
-                        response.append(command.result());
+                        commandOptional = Optional.of(new Add(params));
+                        response.append(commandOptional.get().result());
                         break;
                     default:
+                        commandOptional = Optional.empty();
                         response.append("ERREUR: La requête " + requestType + " n'existe pas.");
                         break;
+                }
+                if(commandOptional.isPresent()){
+                    commandOptional.get().interpret(ideaManager);
                 }
                 out.println(response.toString());
                 out.flush();
                 response.setLength(0);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

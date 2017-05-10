@@ -15,7 +15,6 @@ public class ClientSession implements Runnable {
     private PrintWriter out = null;
     private BufferedReader in = null;
 
-    private boolean error = false;
     private Scanner scanner = null;
 
     private String request;
@@ -32,7 +31,7 @@ public class ClientSession implements Runnable {
             scanner = new Scanner(System.in);
             System.out.println(in.readLine());
 
-            while(!error){
+            while(true){
                 request = scanner.nextLine();
                 out.println(request);
                 out.flush();

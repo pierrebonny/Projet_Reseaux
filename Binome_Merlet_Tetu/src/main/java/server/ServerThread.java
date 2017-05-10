@@ -1,18 +1,14 @@
 package server;
 
-import model.IdeaManager;
-
 import java.net.Socket;
 import java.util.Optional;
 
 public class ServerThread implements Runnable{
 
     private Optional<Socket> socket;
-    private IdeaManager manager;
 
-    public ServerThread(Optional<Socket> socket, IdeaManager ideaManager){
+    public ServerThread(Optional<Socket> socket){
         this.socket = socket;
-        this.manager = ideaManager;
     }
 
     @Override

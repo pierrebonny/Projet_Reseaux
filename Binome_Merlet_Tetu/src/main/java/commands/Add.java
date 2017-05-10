@@ -1,5 +1,8 @@
 package commands;
 
+import model.Idea;
+import model.IdeaManager;
+
 /**
  * @author : thomas
  * @version : 10/05/17
@@ -13,10 +16,17 @@ public class Add implements Command {
     }
 
     @Override
-    public void interpret() {
+    public void interpret(IdeaManager ideaManager) {
        try {
-           for (int i = 1; i < 6; i++) {
-               System.out.println(params[i]);
+           if (params.length !=6){
+               error = true;
+           }else{
+               String name = params[1].split("=")[1];
+               String description = params[2].split("=")[1];
+               String technology = params[3].split("=")[1];
+               String nomCreateur = params[4].split("=")[1];
+               String mailCréateur = params[5].split("=")[1];
+               ideaManager.addIdea(new Idea(name,description,technology,nomCreateur,mailCréateur));
            }
        }catch (Exception e){
            error = true;
