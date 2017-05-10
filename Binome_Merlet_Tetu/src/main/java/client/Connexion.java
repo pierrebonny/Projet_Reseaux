@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class Connexion implements Runnable {
 
     private Socket serverSocket = null;
-    private Thread session = null;
 
     private String mailLogin = null;
 
@@ -24,6 +23,7 @@ public class Connexion implements Runnable {
     private Scanner scanner = null;
 
     private boolean connected = false;
+    private Thread session;
 
     public Connexion(Socket serverSocket) {
         this.serverSocket = serverSocket;
@@ -41,8 +41,11 @@ public class Connexion implements Runnable {
                 mailLogin = scanner.nextLine();
                 out.println(mailLogin);
                 out.flush();
+                connected = true;
             }
-
+            System.out.println(in.readLine());
+            session = new Thread(new ClientSession(out,in));
+            session.start();
         } catch (IOException e) {
             e.printStackTrace();
         }

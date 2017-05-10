@@ -17,6 +17,7 @@ public class Authentification implements Runnable{
     private BufferedReader in = null;
     private boolean authentified = false;
     private String mailLogin = null;
+    private Thread session;
 
     public Authentification(Socket socket) {
         this.socket = socket;
@@ -38,8 +39,10 @@ public class Authentification implements Runnable{
                 out.flush();
 
                 authentified = true;
-
             }
+
+            session = new Thread(new ServerSession(out,in));
+            session.start();
         } catch (IOException e) {
             e.printStackTrace();
         }

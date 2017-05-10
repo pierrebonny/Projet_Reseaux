@@ -2,9 +2,7 @@ package client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.Scanner;
 
 /**
@@ -13,24 +11,33 @@ import java.util.Scanner;
  */
 public class ClientSession implements Runnable {
 
-    private Socket socket;
 
     private PrintWriter out = null;
     private BufferedReader in = null;
 
+    private boolean error = false;
     private Scanner scanner = null;
 
-    public ClientSession(Socket socket) {
-        this.socket = socket;
+    private String request;
+
+    public ClientSession(PrintWriter out, BufferedReader in) {
+        this.out = out;
+        this.in = in;
     }
 
     @Override
     public void run() {
 
         try {
-            out = new PrintWriter(socket.getOutputStream());
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             scanner = new Scanner(System.in);
+            System.out.println(in.readLine());
+
+            while(!error){
+                request = scanner.nextLine();
+                out.println(request);
+                out.flush();
+                System.out.println(in.readLine());
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

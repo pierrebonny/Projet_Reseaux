@@ -19,7 +19,6 @@ public class ServerThread implements Runnable{
     public void run() {
         if(socket.isPresent()){
 
-
             Thread t = new Thread(new Authentification(socket.get()));
             t.start();
         }
