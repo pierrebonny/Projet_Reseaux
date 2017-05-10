@@ -2,6 +2,7 @@ package server;
 
 import commands.Add;
 import commands.Command;
+import commands.Join;
 import model.IdeaManager;
 
 import java.io.BufferedReader;
@@ -47,7 +48,9 @@ public class ServerSession implements Runnable {
                 switch (requestType) {
                     case "ADD":
                         commandOptional = Optional.of(new Add(params));
-                        response.append(commandOptional.get().result());
+                        break;
+                    case "JOIN":
+                        commandOptional = Optional.of(new Join(params));
                         break;
                     default:
                         commandOptional = Optional.empty();
@@ -56,6 +59,7 @@ public class ServerSession implements Runnable {
                 }
                 if(commandOptional.isPresent()){
                     commandOptional.get().interpret(ideaManager);
+                    response.append(commandOptional.get().result());
                 }
                 out.println(response.toString());
                 out.flush();

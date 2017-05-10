@@ -21,4 +21,8 @@ public class IdeaManager {
     public List<Idea> getIdeas() {
         return ideas;
     }
+
+    public Idea getIdea(int index){
+        return this.ideas.get(index);
+    }
 }
