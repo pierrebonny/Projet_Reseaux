@@ -12,6 +12,7 @@ public class Add implements Command {
     private String[] params;
     private boolean error = false;
     private Idea idea;
+
     public Add(String[] params) {
         this.params = params;
     }

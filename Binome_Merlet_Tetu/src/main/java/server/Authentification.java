@@ -41,7 +41,7 @@ public class Authentification implements Runnable{
                 authentified = true;
             }
 
-            session = new Thread(new ServerSession(out,in));
+            session = new Thread(new ServerSession(socket));
             session.start();
         } catch (IOException e) {
             e.printStackTrace();

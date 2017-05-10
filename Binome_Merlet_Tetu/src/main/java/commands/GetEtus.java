@@ -1,26 +1,28 @@
 package commands;
 
+import model.Idea;
 import model.IdeaManager;
 
-public class Join implements Command {
+/**
+ * @author : thomas
+ * @version : 10/05/17
+ */
+public class GetEtus implements Command {
 
     private String[] params;
     private boolean error = false;
     private int ideaID;
-    public Join(String[] params) {
+    private Idea idea;
+
+    public GetEtus(String[] params) {
         this.params = params;
     }
 
     @Override
     public void interpret(IdeaManager ideaManager) {
-        try {
-            if (params.length != 3){
-                error = true;
-            } else{
-                ideaID = Integer.valueOf(getParam(params, "idIdée").split("=")[1]);
-                String mail = getParam(params, "mail").split("=")[1];
-                ideaManager.getIdea(ideaID).addSupporters(mail);
-            }
+        try{
+            ideaID = Integer.valueOf(getParam(params, "idIdée").split("=")[1]);
+            idea = ideaManager.getIdea(ideaID);
         }catch (Exception e){
             error = true;
         }
@@ -28,12 +30,12 @@ public class Join implements Command {
 
     @Override
     public String result() {
-        return (error == true)? "ERREUR: Requete JOIN invalide." : "OK\n";
+        return (error == true)? "ERREUR: Requete GET_ETUS invalide." : ("OK" + idea.supportersToString());
     }
 
     @Override
     public String resultServer() {
-        return (error == true)? "ERREUR: Adding idea failed." : ("JOINING IDEA :" + ideaID + " SUCCESSFULL");
+        return (error == true)? "ERREUR: LISTING STUDENTS FAILED." : "LISTING STUDENTS SUCCESSFULL";
     }
 
     private String getParam(String[] params, String name){
@@ -45,5 +47,3 @@ public class Join implements Command {
         return null;
     }
 }
-
-

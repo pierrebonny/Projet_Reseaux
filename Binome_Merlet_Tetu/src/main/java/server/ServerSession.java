@@ -7,7 +7,9 @@ import model.IdeaManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Optional;
 
 /**
@@ -27,25 +29,26 @@ public class ServerSession implements Runnable {
 
     private StringBuilder response = null;
 
-    public ServerSession(PrintWriter out, BufferedReader in) {
-        this.out = out;
-        this.in = in;
+    public ServerSession(Socket socket) throws IOException {
+        this.out = new PrintWriter(socket.getOutputStream());;
+        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         response = new StringBuilder();
         ideaManager = new IdeaManager();
     }
 
     @Override
     public void run() {
-        out.println("Entrez la commande de votre choix :");
-        out.flush();
-
         try {
             while(true) {
+                out.println("Entrez la commande de votre choix :");
+                out.flush();
                 Optional<Command> commandOptional = Optional.empty();
                 request = in.readLine();
                 requestType = request.split(" ")[0];
                 fillParams();
                 switch (requestType) {
+                    case "":
+                        break;
                     case "ADD":
                         commandOptional = Optional.of(new Add(params));
                         break;
@@ -54,6 +57,7 @@ public class ServerSession implements Runnable {
                         break;
                     case "GET_IDEAS":
                         response.append(ideaManager.toString());
+                        System.out.println("LISTING IDEAS SUCCESSFUL");
                         break;
                     default:
                         commandOptional = Optional.empty();
@@ -65,7 +69,7 @@ public class ServerSession implements Runnable {
                     response.append(commandOptional.get().result());
                     System.out.println(commandOptional.get().resultServer());
                 }
-                out.println(response.toString());
+                out.print(response.toString());
                 out.flush();
                 response.setLength(0);
             }

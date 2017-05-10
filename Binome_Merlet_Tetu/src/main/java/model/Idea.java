@@ -58,5 +58,15 @@ public class Idea {
     public void addSupporters(String mailSupporter) {
         supporters.add(mailSupporter);
     }
+
+    public String supportersToString(){
+        StringBuilder s = new StringBuilder();
+        s.append("Createur : " + this.getNomCreator() + "\n");
+        for(String supp : supporters){
+            s.append("----------------------------------\n");
+            s.append(supp + "\n");
+        }
+        return s.toString();
+    }
 }
 
