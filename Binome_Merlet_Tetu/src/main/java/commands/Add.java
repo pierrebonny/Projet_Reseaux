@@ -21,11 +21,11 @@ public class Add implements Command {
            if (params.length !=6){
                error = true;
            }else{
-               String name = params[1].split("=")[1];
-               String description = params[2].split("=")[1];
-               String technology = params[3].split("=")[1];
-               String nomCreateur = params[4].split("=")[1];
-               String mailCréateur = params[5].split("=")[1];
+               String name = getParam(params, "nom").split("=")[1];
+               String description = getParam(params, "description").split("=")[1];
+               String technology = getParam(params, "technos").split("=")[1];
+               String nomCreateur = getParam(params, "nomCréateur").split("=")[1];
+               String mailCréateur = getParam(params, "mailCréateur").split("=")[1];
                ideaManager.addIdea(new Idea(name,description,technology,nomCreateur,mailCréateur));
            }
        }catch (Exception e){
@@ -36,6 +36,15 @@ public class Add implements Command {
     @Override
     public String result() {
         return (error == true)? "ERREUR: Requete ADD invalide." : "OK";
+    }
+
+    private String getParam(String[] params, String name){
+        for(String param : params){
+            if(param.contains(name)) {
+                return param;
+            }
+        }
+        return null;
     }
 }
 

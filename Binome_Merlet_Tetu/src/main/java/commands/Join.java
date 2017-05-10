@@ -16,8 +16,8 @@ public class Join implements Command {
             if (params.length != 3){
                 error = true;
             } else{
-                int ideaID = Integer.valueOf(params[1].split("=")[1]);
-                String mail = params[2].split("=")[1];
+                int ideaID = Integer.valueOf(getParam(params, "idIdée").split("=")[1]);
+                String mail = getParam(params, "mail").split("=")[1];
                 ideaManager.getIdea(ideaID).addSupporters(mail);
             }
         }catch (Exception e){
@@ -28,6 +28,15 @@ public class Join implements Command {
     @Override
     public String result() {
         return (error == true)? "ERREUR: Requete JOIN invalide." : "OK";
+    }
+
+    private String getParam(String[] params, String name){
+        for(String param : params){
+            if(param.contains(name)) {
+                return param;
+            }
+        }
+        return null;
     }
 }
 
