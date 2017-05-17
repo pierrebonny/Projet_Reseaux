@@ -10,7 +10,7 @@ public class Client {
 
     private void sendRequest(String request) {
         try {
-            myClient = new Socket(InetAddress.getLocalHost(), PORT_NUMBER);
+            myClient = new Socket(InetAddress.getLocalHost(), 15042);
             DataOutputStream output = new DataOutputStream(myClient.getOutputStream());
             output.write((request+"\n").getBytes());
             output.flush();
@@ -19,7 +19,6 @@ public class Client {
             e.printStackTrace();
         }
     }
-
     private String serialize(int idRequest) {
         switch (idRequest) {
             case 1:
