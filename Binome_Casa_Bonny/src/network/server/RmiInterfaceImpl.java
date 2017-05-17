@@ -8,37 +8,37 @@ import java.rmi.server.UnicastRemoteObject;
 public class RmiInterfaceImpl extends UnicastRemoteObject implements RmiInterface {
     private static final long serialVersionUID = 516541835163852L;
 
-    protected RmiInterfaceImpl() throws RemoteException {
+    RmiInterfaceImpl() throws RemoteException {
         super();
     }
 
     @Override
     public String accept(String mail, String idIdee) throws RemoteException {
-        String[] params = {mail, idIdee};
+        String[] params = {"mail="+mail, "idIdée"+idIdee};
         return executeCommand(new Accept(), params);
     }
 
     @Override
     public String add(String nom, String description, String techno, String nomCreateur, String mailCreateur) throws RemoteException {
-        String[] params = {nom, description, techno, nomCreateur, mailCreateur};
+        String[] params = {"nom="+nom, "description="+description, "techno="+techno, "nomCréateur="+nomCreateur, "mailCréateur="+mailCreateur};
         return executeCommand(new Add(), params);
     }
 
     @Override
     public String decline(String mail, String idIdee) throws RemoteException {
-        String[] params = {mail, idIdee};
+        String[] params = {"mail="+mail, "idIdée="+idIdee};
         return executeCommand(new Decline(), params);
     }
 
     @Override
     public String finalizes(String idIdee) throws RemoteException {
-        String[] params = {idIdee};
+        String[] params = {"idIdée="+idIdee};
         return executeCommand(new Finalize(), params);
     }
 
     @Override
     public String getEtus(String idIdee) throws RemoteException {
-        String[] params = {idIdee};
+        String[] params = {"idIdée="+idIdee};
         return executeCommand(new GetEtus(), params);
     }
 
@@ -50,7 +50,7 @@ public class RmiInterfaceImpl extends UnicastRemoteObject implements RmiInterfac
 
     @Override
     public String join(String idIdee, String mail) throws RemoteException {
-        String[] params = {mail, idIdee};
+        String[] params = {"mail="+mail, "idIdée="+idIdee};
         return executeCommand(new Join(), params);
     }
 
@@ -62,7 +62,7 @@ public class RmiInterfaceImpl extends UnicastRemoteObject implements RmiInterfac
 
     @Override
     public String sub(String mail) throws RemoteException {
-        String[] params = {mail};
+        String[] params = {"mail="+mail};
         return executeCommand(new Sub(), params);
     }
 
