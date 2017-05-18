@@ -1,4 +1,4 @@
-package model;
+package server.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.List;
  * @version : 03/05/17
  */
 public class Idea {
+
     private String name;
     private String description;
     private String technology;

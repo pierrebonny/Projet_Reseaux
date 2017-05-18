@@ -15,10 +15,6 @@ public class ClientSession implements Runnable {
     private PrintWriter out = null;
     private BufferedReader in = null;
 
-    private Scanner scanner = null;
-
-    private String request;
-
     public ClientSession(PrintWriter out, BufferedReader in) {
         this.out = out;
         this.in = in;
@@ -28,14 +24,17 @@ public class ClientSession implements Runnable {
     public void run() {
 
         try {
-            scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
             System.out.println(in.readLine());
 
             while(true){
-                request = scanner.nextLine();
+                String request = scanner.nextLine();
                 out.println(request);
                 out.flush();
-                System.out.println(in.readLine());
+                String line;
+                while ( (line = in.readLine())!=null){
+                    System.out.println(line);
+                }
             }
 
         } catch (IOException e) {

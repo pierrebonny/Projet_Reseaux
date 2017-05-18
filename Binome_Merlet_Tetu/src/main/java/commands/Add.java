@@ -1,7 +1,7 @@
 package commands;
 
-import model.Idea;
-import model.IdeaManager;
+import server.model.Idea;
+import server.model.IdeaManager;
 
 /**
  * @author : thomas
@@ -37,7 +37,7 @@ public class Add implements Command {
 
     @Override
     public String result() {
-        return (error == true)? "ERREUR: Requete ADD invalide." : "OK";
+        return (error == true)? "ERREUR: Requete ADD invalide." : "OK\n";
     }
 
     @Override

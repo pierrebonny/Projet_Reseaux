@@ -1,9 +1,7 @@
 package server;
 
-import commands.Add;
-import commands.Command;
-import commands.Join;
-import model.IdeaManager;
+import commands.*;
+import server.model.IdeaManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,8 +45,6 @@ public class ServerSession implements Runnable {
                 requestType = request.split(" ")[0];
                 fillParams();
                 switch (requestType) {
-                    case "":
-                        break;
                     case "ADD":
                         commandOptional = Optional.of(new Add(params));
                         break;
@@ -56,8 +52,10 @@ public class ServerSession implements Runnable {
                         commandOptional = Optional.of(new Join(params));
                         break;
                     case "GET_IDEAS":
-                        response.append(ideaManager.toString());
-                        System.out.println("LISTING IDEAS SUCCESSFUL");
+                        commandOptional = Optional.of(new GetIdeas());
+                        break;
+                    case "GET_ETUS":
+                        commandOptional = Optional.of(new GetEtus(params));
                         break;
                     default:
                         commandOptional = Optional.empty();

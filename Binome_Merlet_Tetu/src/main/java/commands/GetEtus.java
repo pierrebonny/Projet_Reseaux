@@ -1,7 +1,7 @@
 package commands;
 
-import model.Idea;
-import model.IdeaManager;
+import server.model.Idea;
+import server.model.IdeaManager;
 
 /**
  * @author : thomas

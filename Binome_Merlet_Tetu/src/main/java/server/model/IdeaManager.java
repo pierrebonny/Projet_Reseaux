@@ -1,5 +1,9 @@
-package model;
+package server.model;
 
+import server.RequestInterface;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,19 +11,17 @@ import java.util.List;
  * @author : thomas
  * @version : 03/05/17
  */
-public class IdeaManager {
+public class IdeaManager extends UnicastRemoteObject implements RequestInterface{
+
     private List<Idea> ideas = null;
 
-    public IdeaManager() {
+    public IdeaManager() throws RemoteException {
+        super();
         ideas = new ArrayList<>();
     }
 
     public void addIdea(Idea idea){
         this.ideas.add(idea);
-    }
-
-    public List<Idea> getIdeas() {
-        return ideas;
     }
 
     public Idea getIdea(int index){
@@ -40,6 +42,31 @@ public class IdeaManager {
             s.append("Finalisé : " + idea.isProject()+"\n");
             s.append("---------------------------------\n");
         }
+        System.out.println(s.toString());
         return s.toString();
+    }
+
+    @Override
+    public String add(String name, String description, String technos, String nomCreator, String mailCreator) throws RemoteException {
+        this.addIdea(new Idea(name,description,technos,nomCreator,mailCreator));
+        return "OK\n";
+    }
+
+    @Override
+    public String getIdeas() throws RemoteException {
+        return this.toString();
+    }
+
+    @Override
+    public String join(int idIdea, String mail) throws RemoteException {
+        Idea idea = getIdea(idIdea);
+        idea.addSupporters(mail);
+        return "OK\n";
+    }
+
+    @Override
+    public String getStudents(int idIdea) throws RemoteException {
+        Idea idea = getIdea(idIdea);
+        return idea.supportersToString();
     }
 }
