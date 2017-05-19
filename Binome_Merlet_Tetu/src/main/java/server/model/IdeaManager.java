@@ -25,14 +25,14 @@ public class IdeaManager extends UnicastRemoteObject implements RequestInterface
     }
 
     public Idea getIdea(int index){
-        return this.ideas.get(index);
+        return this.ideas.get(index-1);
     }
 
     public String toString(){
         StringBuilder s = new StringBuilder();
         s.append("---------------------------------\n");
         for(int i =0;i<ideas.size();i++){
-            Idea idea = ideas.get(i);
+            Idea idea = ideas.get(i+1);
             s.append("Idée " + i +" :\n");
             s.append("Nom : " + idea.getName() +"\n");
             s.append("Description : "+ idea.getDescription()+ "\n");

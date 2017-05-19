@@ -17,16 +17,12 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] argv) {
 
-
-
         try {
+            //System.setSecurityManager(new RMISecurityManager());
             System.out.println("Recherche de l'objet Serveur ...");
             RequestInterface requestInterface = (RequestInterface) Naming.lookup("rmi://localhost/RequestInterface");
+            displayCommands();
             while(true) {
-                System.out.println("Voici la liste des commandes disponibles : ");
-                for (Commands c : Commands.values()) {
-                    System.out.println(c.getS());
-                }
                 System.out.println("Entrez la commande désirée :");
                 Scanner scanner = new Scanner(System.in);
                 String command = scanner.nextLine();
@@ -42,31 +38,40 @@ public class Client {
                         System.out.println(param + ":");
                         params.add(scanner.nextLine());
                     }
-                }else{
+
+                    System.out.println("Invocation de la méthode " + commands.getS());
+                    String result;
+                    switch (commands) {
+                        case ADD:
+                            result = requestInterface.add(params.get(0), params.get(1), params.get(2), params.get(3), params.get(4));
+                            break;
+                        case JOIN:
+                            try {
+                                result = requestInterface.join(Integer.parseInt(params.get(0)), params.get(1));
+                            }catch (Exception e){
+                                result = "ERREUR : Idée n°" +params.get(0)+" inexistante";
+                            }
+                            break;
+                        case GET_ETUS:
+                            result = requestInterface.getStudents(Integer.parseInt(params.get(0)));
+                            break;
+                        case GET_IDEAS:
+                            result = requestInterface.getIdeas();
+                            break;
+                        case HELP:
+                            displayCommands();
+                            result = "";
+                            break;
+                        case QUIT:
+                            System.exit(0);
+                        default:
+                            result = "ERREUR";
+                            break;
+                    }
+                    System.out.println(result);
+                }else {
                     System.out.println("ERREUR : commande invalide");
-                    break;
                 }
-                System.out.println("Invocation de la méthode " + commands.getS());
-                String result;
-                switch (commands) {
-                    case ADD:
-                        result = requestInterface.add(params.get(0), params.get(1), params.get(2), params.get(3), params.get(4));
-                        break;
-                    case JOIN:
-                        result = requestInterface.join(Integer.parseInt(params.get(0)), params.get(1));
-                    case GET_ETUS:
-                        result = requestInterface.getStudents(Integer.parseInt(params.get(0)));
-                        break;
-                    case GET_IDEAS:
-                        result = requestInterface.getIdeas();
-                        break;
-                    case QUIT:
-                        System.exit(0);
-                    default:
-                        result = "ERREUR";
-                        break;
-                }
-                System.out.println(result);
             }
 
         } catch (IOException e) {
@@ -74,8 +79,14 @@ public class Client {
             e.printStackTrace();
 
         } catch (NotBoundException e) {
-            e.printStackTrace();
-        }
+            e.printStackTrace();}
 
+    }
+
+    private static void displayCommands(){
+        System.out.println("Voici la liste des commandes disponibles : ");
+        for (Commands c : Commands.values()) {
+            System.out.println(c.getS());
+        }
     }
 }
