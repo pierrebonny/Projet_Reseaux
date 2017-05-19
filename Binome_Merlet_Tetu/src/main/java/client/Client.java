@@ -53,16 +53,28 @@ public class Client {
                             }
                             break;
                         case GET_ETUS:
+                            try {
                             result = requestInterface.getStudents(Integer.parseInt(params.get(0)));
+                            }catch (Exception e){
+                            result = "ERREUR : Idée n°" +params.get(0)+" inexistante";
+                            }
                             break;
                         case GET_IDEAS:
                             result = requestInterface.getIdeas();
                             break;
                         case FINALIZE:
+                            try {
                             result = requestInterface.finalize(Integer.parseInt(params.get(0)));
+                            }catch (Exception e){
+                                result = "ERREUR : Idée n°" +params.get(0)+" inexistante";
+                           }
                             break;
                         case DELETE:
+                            try {
                             result = requestInterface.delete(Integer.parseInt(params.get(0)));
+                            }catch (Exception e){
+                                result = "ERREUR : Idée n°" +params.get(0)+" inexistante";
+                            }
                             break;
                         case HELP:
                             displayCommands();
