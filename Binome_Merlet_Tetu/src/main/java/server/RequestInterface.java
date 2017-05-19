@@ -17,4 +17,7 @@ public interface RequestInterface extends Remote {
 
     public String getStudents(int idIdea) throws RemoteException;
 
+    public String finalize(int idIdea) throws RemoteException;
+
+    public String delete(int idIdea) throws RemoteException;
 }

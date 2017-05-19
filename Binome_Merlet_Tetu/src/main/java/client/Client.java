@@ -58,6 +58,12 @@ public class Client {
                         case GET_IDEAS:
                             result = requestInterface.getIdeas();
                             break;
+                        case FINALIZE:
+                            result = requestInterface.finalize(Integer.parseInt(params.get(0)));
+                            break;
+                        case DELETE:
+                            result = requestInterface.delete(Integer.parseInt(params.get(0)));
+                            break;
                         case HELP:
                             displayCommands();
                             result = "";

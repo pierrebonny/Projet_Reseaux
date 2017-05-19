@@ -32,8 +32,8 @@ public class IdeaManager extends UnicastRemoteObject implements RequestInterface
         StringBuilder s = new StringBuilder();
         s.append("---------------------------------\n");
         for(int i =0;i<ideas.size();i++){
-            Idea idea = ideas.get(i+1);
-            s.append("Idée " + i +" :\n");
+            Idea idea = ideas.get(i);
+            s.append("Idée " + (i+1) +" :\n");
             s.append("Nom : " + idea.getName() +"\n");
             s.append("Description : "+ idea.getDescription()+ "\n");
             s.append("Technologie : " + idea.getTechnology()+"\n");
@@ -68,5 +68,23 @@ public class IdeaManager extends UnicastRemoteObject implements RequestInterface
     public String getStudents(int idIdea) throws RemoteException {
         Idea idea = getIdea(idIdea);
         return idea.supportersToString();
+    }
+
+    @Override
+    public String finalize(int idIdea) throws RemoteException {
+        if(idIdea > 0 && idIdea <= ideas.size()) {
+            getIdea(idIdea).setProject();
+            return "OK\n";
+        } else
+            return "Erreur : ID non valide\n";
+    }
+
+    @Override
+    public String delete(int idIdea) throws RemoteException {
+        if(idIdea > 0 && idIdea <= ideas.size()) {
+            ideas.remove(idIdea-1);
+            return "OK\n";
+        } else
+            return "Erreur : ID non valide\n";
     }
 }

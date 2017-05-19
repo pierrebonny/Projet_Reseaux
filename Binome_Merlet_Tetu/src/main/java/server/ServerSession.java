@@ -52,7 +52,7 @@ public class ServerSession implements Runnable {
                         commandOptional = Optional.of(new Join(params));
                         break;
                     case "GET_IDEAS":
-                        commandOptional = Optional.of(new GetIdeas());
+                        //commandOptional = Optional.of(new GetIdeas());
                         break;
                     case "GET_ETUS":
                         commandOptional = Optional.of(new GetEtus(params));

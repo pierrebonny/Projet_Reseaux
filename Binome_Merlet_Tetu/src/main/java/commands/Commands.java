@@ -10,6 +10,8 @@ public enum Commands {
     JOIN("JOIN",new String[]{"Id de l'idée","Votre mail"}),
     GET_ETUS("GET_ETUS",new String[]{"Id de l'idée"}),
     GET_IDEAS("GET_IDEAS",new String[]{}),
+    FINALIZE("FINALIZE",new String[]{"idIdée"}),
+    DELETE("DELETE",new String[]{"idIdée"}),
     HELP("HELP",new String[]{}),
     QUIT("QUIT",new String[]{});
 
